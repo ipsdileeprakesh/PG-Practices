@@ -1,6 +1,7 @@
 
 1. How to drop a parent table without dropping the child table.
 
+
 2. What is a database system identifier and how to find it.
 ANS: System Identifier number will be assigned when Postgres database is installed in server and The system identifier remains the same even if the server has cloned or backup....etc..
 
