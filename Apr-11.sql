@@ -17,9 +17,8 @@ To extract the tar files.
 
 
 
-
-
 2. Deomonstrate the usage of sed command
+
 ANS:
 SED= STREAM EDITOR
 
@@ -47,6 +46,7 @@ Many uses are available in Internet for SED command... Please check it online...
 
 	
 3. Create citext extension and demonstrate it's usage
+
 ANS:		CREATE EXTENSION citext;
 EX:	
 Create table mobile(t text); 
@@ -68,7 +68,11 @@ select * from mobile where t='my mobile is old mobile';
  My mobile is Old Mobile
 (1 row)
 
+
+
+
 4. How to check the table size from OS level
+
 ANS: 1st we need check table size in Postgres by using meta command (\dt+) 
 then find file path by using select pg_relation_filepath('Table name');
 O/P:  pg_relation_filepath
@@ -83,7 +87,11 @@ O/P:
 -rw------- 1 dileep dileep  36249600 Apr  9 05:34 352630
 -rw------- 1 dileep dileep     32768 Apr  9 05:28 352630_fsm
 
+
+
+
 5. Demonstrate the usage of All JOINS, ORDER BY, GROUP BY
+
 ANS: We need two or more tables for using Joins
 EX:
 select * from client;
@@ -183,20 +191,31 @@ SELECT * FROM CUSTOMERS ORDER BY NAME, SALARY;
 
 
 
-
-
 6. How to find the exact number of rows in a table without using COUNT(*) and reltuples from pg_class
+
 ANS: 
 TO find ROWS (reltuples)
 select reltuples from pg_class where oid='customers'::regclass;
  reltuples
 -----------
          7
+
 TO find PAGES (relpages)
 select relpages from pg_class where oid='customers'::regclass;
  relpages
 ----------
         1
+
+Without Using COUNT(*):
+
+postgres=# SELECT SUM(1) FROM test;
+ sum
+-----
+ 100
+(1 row)
+here SUM(1) represents replace all rows values with 1 and sum it, so that we can get the total rows of given table.
+
+-------------------------
 analyze verbose customers;
 INFO:  analyzing "public.customers"
 INFO:  "customers": scanned 1 of 1 pages, containing 7 live rows and 0 dead rows; 7 rows in sample, 7 estimated total rows
@@ -204,7 +223,9 @@ INFO:  "customers": scanned 1 of 1 pages, containing 7 live rows and 0 dead rows
 
 
 
+
 7. What is the usage of ANALYZE command
+
 ANS:
 ANALYZE users; collects statistics for users table.
 ANALYZE VERBOSE users; does exactly the same plus prints progress messages.
