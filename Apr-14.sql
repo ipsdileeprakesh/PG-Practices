@@ -89,19 +89,26 @@ EX:
 7). Restart or Reload which ever its required.
 
 
-Postgresql database check all the parameters from configuration file(Postgresql.conf). Sometimes while starting server we will get errors because of parameter issues. Read the error description and change the values accordingly.
-
-
-
+Postgresql database check all the parameters from configuration files(Postgresql.conf and manually given .conf). 
+Sometimes while starting server we will get errors because of parameter issues. Read the error description and change the values accordingly.
 
 
 
 
 5. Define the parameter affect hirerachy levels.
 
+ANS:
 
 
+We can change the parameter settings from default values to manual values. And the Postgresql consider the parameters by the following order.
 
-
+1). SET local command for the single transaction.==> SET local_work_mem to '100MB';
+2). SET command for the whole session.==> SET work_mem to '100MB';
+3). User Parameter settings
+4). Database parameter settings
+5). Database/User combination settings
+6). Postgresql.auto.conf settings
+7). include=xxxx.conf file settings from Postgresql.conf
+8). Postgresql. conf file settings
 
 
