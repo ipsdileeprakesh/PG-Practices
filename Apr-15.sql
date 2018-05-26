@@ -1,4 +1,5 @@
  1. Describe each character meaning in SELECT current_timestamp.
+
 ANS:
 postgres=# SELECT CURRENT_TIMESTAMP;
               now
@@ -14,6 +15,7 @@ Here result displays with current Year, month, date, time with minutes, seconds 
 
 
  3. How to kill or shutdown a postgres manually (Google)
+
 ANS:
 Check the Postgres running or not by using (ps -ef | grep postgres) in O.S. level.
 Note down the PID of Postgres.

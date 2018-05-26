@@ -27,12 +27,17 @@ KiB Swap:  4192252 total,  4192252 free,        0 used.  2493860 avail Mem
 
 2. Install/Create pgfincore, pg_buffercache extensions in database level
 
+
 3. Define what is the CHECKPOINT it's background behavior?
+
 ANS:
+
 Only superusers can call CHECKPOINT
 It is a point where all the data files will update in disk and write the information in log files. 
 In case of crash, the recovery procedure checks the latest CHECKPOINT and recovery the data till that point.
 If any changes made for the data files before that CHECKPOINT is guaranteed to be in disk.
+
+The server's checkpointer process automatically performs a checkpoint every so often. A checkpoint is begun every checkpoint_timeout seconds, or if max_wal_size is about to be exceeded, whichever comes first. The default settings are 5 minutes and 1 GB, respectively.
 
 
 
@@ -40,6 +45,7 @@ If any changes made for the data files before that CHECKPOINT is guaranteed to b
 
 
 4. Install PostgreSQL 9.5 version, and demonstrate a dblink connection from your current version to the 9.5?
+
 ANS:
 In this case we should have two versions of Postgresql (Postgresql 9.6 and Postgresql 9.5).
 SERVER 1 = Postgresql 9.6
@@ -85,4 +91,50 @@ postgres=# select * from dblink('link1', 'select * from kumar') as test (t int, 
  3 | ccc
 (3 rows)
 
+
 5. Demonstrate the usage of psql's -H, -R, -A, -t and -F parameters
+
+ANS:
+
+-a == echo all (print all input lines)
+-A == Align or No Align (shows Align or unaligned to output mode, default output mode is aligned)
+-b == echo errors (print failed SQL commands to standard error output)
+-c == command (will help to execute commands while login to psql, it helps to run the query and displays out and quit from it.)
+	EX: dileep@ubuntu:~$ psql -p 5432 -h localhost -d postgres -c 'select * from new';
+ t
+----
+ 10
+ 20
+ 30
+(3 rows)
+ 
+-d == dbname (database name)
+-e == echo queries
+-E == echo hidden
+-f == filename
+-F == field separator
+-h == hostname
+-H == turn on HTML tabular format
+-l == list (list of avaliable databases, then exit)
+-L == log file name (write query errors and details in specified log file not in pg_log)
+-n ==
+-o == 
+-p == port number
+-P == 
+-q == quiet (by default welcome message will display in informational output, If we use this option, none of this happens, but its not recommanded, coz we cannot find that the what version of psql and postgres we are using)
+-R == 
+-s == 
+-S ==
+-t == 
+-T ==
+-U == username
+-v == 
+-V == version (Print the psql version and exit)
+-w == 
+-W ==
+-x ==
+-X ==
+-z ==
+-0 ==
+-1 ==
+-? == help (show help psql and exit)

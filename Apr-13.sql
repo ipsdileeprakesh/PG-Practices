@@ -38,6 +38,8 @@ postgres=# \d+ company
  name   | text    |           | extended |              |
 Indexes:
     "company_pkey" PRIMARY KEY, btree (id)
+
+
 Referenced by:
     TABLE "customers" CONSTRAINT "customers_companyid_fkey" FOREIGN KEY (companyid) REFERENCES company(id)
 
@@ -50,7 +52,10 @@ DROP TABLE
 
 Now Parent table deleted and child table remains.
 
+
+
 2. What is a database system identifier and how to find it.
+
 ANS: System Identifier number will be assigned when Postgres database is installed in server and The system identifier remains the same even if the server has cloned or backup....etc..
 
 Many actions on the server will keyed to the system identifier.
@@ -63,14 +68,18 @@ pg_controldata /opt/postgresql/pg96/data | grep "system identifier";
 Database system identifier:           6519466583466762612
 
 
+
 3. How to find the query execution duration time from log file.
+
 ANS: open config file and change log_min_duration_statement value from -1 to 0 (0 milli secs) and reload the conf file.
 Create a Table with values
 check latest log file from /opt/postgresql/pg96/data/pg_log$ ls -l
 open with cat postgresql-2018-04-13_033808.log
 
+
 4. What is the difference between TRUNCATE, DELETE and DROP statement. (Google)
 
+ANS:
  1)TRUNCATE:
 TRUNCATE is a DDL command 
 TRUNCATE is executed using a table lock and whole table is locked for remove all records. 
