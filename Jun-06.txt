@@ -1,0 +1,109 @@
+1. Demonstrate the usage of pgloader using a sample CSV files
+ANS: 
+We use pgloader to upload the flat files to postgres database.
+First we need to install pgloader extension.
+
+Create a csv file with data if we dont have.
+EX:
+dileep@localhost ~ vim /tmp/hw.csv
+
+1, 'AAAA', 'LAB ASSISTANT', 'LAB', 
+2, 'BBBB', 'SENIOR ACCOUNTANT', 'ACCOUNTS', 
+3, 'CCCC', 'ACCOUNTANT', 'ACCOUNTS', 
+4, 'DDDD', 'PROGRAMMER', 'IT', 
+5, 'EEEE', 'SR. PROGRAMMER', 'IT', 
+6, 'FFFF', 'ACCOUNTANT', 'ACCOUNTS'
+
+
+Create a .conf file with csv details.
+
+EX:
+dileep@localhost: vim /tmp/hwload.conf   
+
+LOAD CSV
+     FROM '/tmp/hw.csv' (a, b, c, d)					-----------------> here in FROM we need to give csv file path with columns
+     INTO postgresql://postgres@127.0.0.1:5432/postgres?hw (a, b, c, d) -----------------> here in INTO we need to give absolute path of table location with 											colums
+
+WITH truncate,
+
+          fields terminated by ',';
+
+
+
+
+
+pgloader /tmp/hwload.conf  ------------------> Execute this command to run the .conf file
+
+dileep@localhost ~ /tmp/pgloader ~ pgloader /tmp/hwload.conf                                                                                        
+2018-06-10T07:34:48.549000-04:00 LOG report summary reset
+             table name       read   imported     errors      total time
+-----------------------  ---------  ---------  ---------  --------------
+                  fetch          0          0          0          0.015s 
+-----------------------  ---------  ---------  ---------  --------------
+                     hw          6          6          0          0.050s 
+-----------------------  ---------  ---------  ---------  --------------
+        Files Processed          1          1          0          0.059s 
+COPY Threads Completion          2          2          0          0.053s 
+-----------------------  ---------  ---------  ---------  --------------
+      Total import time          6          6          0          0.556s -------------------------> here zero errors and data succesfully uploaded to the table hw.
+
+
+
+
+2. Demonstrate the usage of BEFORE LOAD and AFTER LOAD option in pgloader
+ANS:
+
+LOAD CSV
+    FROM './test.csv' (id, text)
+    INTO postgresql://test:test@localhost/test?test (id, test)
+
+    WITH truncate,
+        skip header = 1,
+        fields optionally enclosed by '"',
+        fields escaped by double-quote,
+        fields terminated by ';'
+
+    SET client_encoding to 'latin1',
+        work_mem to '12MB',
+        standard_conforming_strings to 'on'
+
+    BEFORE LOAD DO						-------------------> Here Before Load option will check the and do the needful before uploading data from csv to tables.
+        $$ drop table if exists test; $$,
+        $$ create table test(id int, text varchar(4)); $$,
+
+    AFTER LOAD DO
+        $$ drop table if exists test; $$,			-------------------> Here After Load option will check the and do the needful after uploading data from csv to tables.
+        $$ create table test(id int, text varchar(4)); $$,
+
+
+3. Show some bad rejected data place when you do via pgloader
+ANS:
+
+When we execute .conf file, If we have any wrong data in the csv files, those data rows will not upload to the table and it shows as below.
+
+
+dileep@localhost ~ /tmp/pgloader ~ pgloader /tmp/hwload.conf                                                                                        
+2018-06-10T07:33:12.973000-04:00 ERROR PostgreSQL ["hw"] Database error 22P02: invalid input syntax for integer: "D"
+CONTEXT: COPY hw, line 4, column a: "D"
+2018-06-10T07:33:13.175000-04:00 LOG report summary reset
+             table name       read   imported     errors      total time
+-----------------------  ---------  ---------  ---------  --------------
+                  fetch          0          0          0          0.022s 
+-----------------------  ---------  ---------  ---------  --------------
+                     hw          6          5          1          0.114s 
+-----------------------  ---------  ---------  ---------  --------------
+        Files Processed          1          1          0          0.222s 
+COPY Threads Completion          2          2          0          0.212s 
+-----------------------  ---------  ---------  ---------  --------------
+      Total import time          6          5          1          1.184s -------------------> Here 1 errors and remaining 5 rows uploaded succesfully
+
+And those error data details will be saved in tablename.dat files defaultly. By using cat command we can see which are not uploaded data in table. And whole rows will not upload to table. we need check errors and correct them accordingly.
+
+dileep@localhost ~ /tmp/pgloader/hw ~ cat hw.dat                                                                                                  
+D	'DDDD'	'PROGRAMMER	'IT'
+
+
+
+
+
+

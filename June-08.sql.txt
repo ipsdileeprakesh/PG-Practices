@@ -1,0 +1,13 @@
+1. Demonstrate the usage of ROLES with two users, by granting one user's table permission(With schema owner as user1) to other user
+
+
+2. Demonstrate the how to give all table's write access from user1 to user2
+
+
+3. Demonstrate the usage of NOT INHERIT
+
+
+4. Demonstrate the usage of VALID UNTIL option while creating the user
+
+
+5. Santosh's challange to the dynamic SQL query script, which he tries to print all the usernames in a single row.

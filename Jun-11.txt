@@ -1,0 +1,26 @@
+1. Demonstrate the user temporarly block use case by using LOGIN/NO LOGIN and pg_hba.conf (Reject method)
+
+
+2. Demonstrate the user drop without loosing the data by rassinging the ownership of the object to other user, along with it's permissions, along with renaming a user to another user.
+
+
+3. Demonstrate the usage of crateuser commandline utility, which creates a non super user and a super user.
+ANS:
+
+By using ./createuser --interactive command we can create new users in O.S. level.
+
+If you add the --interactive command-line option, you activate the interactive mode, which means you will be asked some questions, as follows.
+
+dileep@localhost ~ /opt/PostgreSQL/10/bin ~ export PGUSER=postgres                                                                                  dileep@localhost ~ /opt/PostgreSQL/10/bin ~ ./createuser --interactive                                                                                
+Enter name of role to add: hola
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) n
+Shall the new role be allowed to create more new roles? (y/n) n
+
+Without --interactive, the previous questions get "no" as the default answer.
+
+
+4. List all permissions on a table. That is, which user has the read and which user has the write access.
+
+
+5. Demonstrate killing all sessions of a specific postgre user connections.

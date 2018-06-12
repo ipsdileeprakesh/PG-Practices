@@ -1,0 +1,25 @@
+1. Demonstrate identifying duplicates in a table, and deletion of those using below table
+
+		test
+	t		t1
+	--		--
+	1		3
+	1		2
+	1		4
+	1		3
+	1		3
+	1		4
+	1		5
+
+2. Demonstrate the usage of work_mem parameter by simulating joins on large tables.
+
+
+3. Demonstrate the usage of TEMP tables
+
+
+
+4. Demonstrate the usage of LOCK TABLE IN ROW SHARE EXLUSIVE MODE, and also define all other possible lock modes (Read PostgreSQL manual)
+
+
+
+5. What is a sequence in PostgreSQL(google)
